@@ -18,6 +18,7 @@ package org.springframework.integration.smb.config;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -50,6 +51,7 @@ public class SmbInboundChannelAdapterParserTests extends AbstractBaseTest {
 		ApplicationContext ac = 
 			new ClassPathXmlApplicationContext(getApplicationContextXmlFile(), this.getClass());
 		SourcePollingChannelAdapter adapter = ac.getBean("smbInbound", SourcePollingChannelAdapter.class);
+		assertFalse(TestUtils.getPropertyValue(adapter, "autoStartup", Boolean.class));
 		Comparator<File> comparator = TestUtils.getPropertyValue(adapter, "source.fileSource.toBeReceived.q.comparator", Comparator.class);
 		assertNotNull(comparator);
 		assertEquals("smbInbound", adapter.getComponentName());
